@@ -1,4 +1,4 @@
-/* RESET */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   font-family: sans-serif;
 }
 
-/* HEADER */
+
 header {
   display: flex;
   align-items: center;
@@ -44,12 +44,12 @@ header {
   font-weight: bold;
 }
 
-/* LAYOUT PRINCIPAL */
+
 main {
   display: flex;
 }
 
-/* SIDEBAR */
+
 .sidebar {
   width: 240px;
   padding: 30px 20px;
@@ -90,7 +90,7 @@ main {
   display: inline-block;
 }
 
-/* ALERTS SECTION */
+
 .alerts {
   flex-grow: 1;
   padding: 30px;
@@ -121,7 +121,7 @@ main {
   cursor: pointer;
 }
 
-/* ALERT CARDS */
+
 .alert-card {
   display: flex;
   gap: 20px;
@@ -186,7 +186,7 @@ main {
 
 /* _____________________estilos Residuos___________*/
 
-/* Contenedor principal con distribución en fila */
+
 .contenedor {
   display: flex;
   gap: 2rem;
@@ -198,7 +198,7 @@ main {
   color: #333;
 }
 
-/* Cada columna toma 1/3 del ancho */
+
 .columna {
   flex: 1;
   background: #fff;
@@ -209,14 +209,14 @@ main {
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
 }
 
-/* Estilo para los títulos de sección */
+
 h2 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
-/* Estilo para horario de recolección: grid para días y horas */
+
 .horario-recoleccion {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -239,7 +239,7 @@ h2 {
   white-space: normal;
 }
 
-/* Botón Crear nueva campaña alineado a la derecha */
+
 .boton-nueva-campaña {
   background-color: #a51e1e;
   color: white;
@@ -257,7 +257,7 @@ h2 {
   background-color: #7f1717;
 }
 
-/* Tarjetas para campañas y puntos de reciclaje */
+
 .tarjeta {
   background: #fafafa;
   border: 1px solid #ddd;
@@ -280,7 +280,7 @@ h2 {
   font-style: normal;
 }
 
-/* Responsive: en pantallas pequeñas apilar todo */
+/*responsive*/
 @media (max-width: 768px) {
   .contenedor {
     flex-direction: column;
