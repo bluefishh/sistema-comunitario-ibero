@@ -1,0 +1,297 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 15px 40px;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.top-nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.top-nav a.active,
+.top-nav a:hover {
+  background-color: #a00404;
+  color: white;
+}
+
+.user {
+  font-weight: bold;
+}
+
+/* LAYOUT PRINCIPAL */
+main {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  padding: 30px 20px;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.sidebar .description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: #a00404;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+/* ALERTS SECTION */
+.alerts {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.alerts-header h2 {
+  font-size: 24px;
+}
+
+.alerts-header p {
+  color: #555;
+  font-size: 14px;
+}
+
+.new-alert {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ALERT CARDS */
+.alert-card {
+  display: flex;
+  gap: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.alert-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.alert-info {
+  flex: 1;
+}
+
+.alert-info h3 {
+  margin: 5px 0;
+}
+
+.alert-info p {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.alert-time {
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+}
+
+/* BADGES */
+.badge {
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.badge.red {
+  background-color: #f25b5b;
+}
+
+.badge.yellow {
+  background-color: #f2c94c;
+  color: black;
+}
+
+.badge.green {
+  background-color: #27ae60;
+}
+
+/* _____________________estilos Residuos___________*/
+
+/* Contenedor principal con distribución en fila */
+.contenedor {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Cada columna toma 1/3 del ancho */
+.columna {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+}
+
+/* Estilo para los títulos de sección */
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* Estilo para horario de recolección: grid para días y horas */
+.horario-recoleccion {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(80px, auto);
+  gap: 0.5rem;
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.horario-recoleccion div {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  white-space: normal;
+}
+
+/* Botón Crear nueva campaña alineado a la derecha */
+.boton-nueva-campaña {
+  background-color: #a51e1e;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.boton-nueva-campaña:hover {
+  background-color: #7f1717;
+}
+
+/* Tarjetas para campañas y puntos de reciclaje */
+.tarjeta {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: #333;
+}
+
+.tarjeta strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.tarjeta em {
+  color: #666;
+  font-style: normal;
+}
+
+/* Responsive: en pantallas pequeñas apilar todo */
+@media (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+  }
+  
+  .boton-nueva-campaña {
+    float: none;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+}
+
+
+
