@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear cuenta - Community Alert System</title>
+  <link rel="stylesheet" href="/estilos_css/estilosindex.css">
+</head>
+<body>
+  <div class="register-container">
+    <img src="/logo.png" alt="Logo" style="width:100px;display:block;margin:auto;">
+    <h2>Crear cuenta</h2>
+    <% if (error) { %>
+      <p style="color:red;"><%= error %></p>
+    <% } %>
+    <form action="/register" method="POST">
+      <div>
+        <input type="text" name="primerNombre" placeholder="Primer nombre" required>
+        <input type="text" name="segundoNombre" placeholder="Segundo nombre">
+      </div>
+      <div>
+        <input type="text" name="primerApellido" placeholder="Primer apellido" required>
+        <input type="text" name="segundoApellido" placeholder="Segundo apellido">
+      </div>
+      <input type="email" name="correo" placeholder="Correo electrónico" required>
+      <input type="password" name="contrasena" placeholder="Contraseña" required>
+      <input type="password" name="confirmarContrasena" placeholder="Confirmar contraseña" required>
+      <button type="submit">Crear cuenta</button>
+    </form>
+    <p>¿Ya tiene cuenta? <a href="/login">Inicie sesión</a></p>
+  </div>
+</body>
+</html>
