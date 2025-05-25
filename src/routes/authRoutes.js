@@ -1,66 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const User = require('../models/userModel');
+const UserModel = require('../models/userModel');
+const AuthController = require('../controllers/authController');
 
-// Renderiza el formulario de login en la ruta raíz
-router.get('/', (req, res) => {
-    res.render('login', { error: null });
-});
+const authController = new AuthController(UserModel);
 
-// Procesa el login
-router.post('/login', async (req, res) => {
-    const { correo, contrasena } = req.body;
-    const user = await User.findOne({ correo });
-    if (!user || !(await user.comparePassword(contrasena))) {
-        return res.render('login', { error: 'Usuario o contraseña incorrectos' });
-    }
-    req.session.userId = user._id;
-    res.redirect('/alerts/all');
-});
+// Ruta para procesar login en raiz	
+router.get('/', (req, res) => authController.renderLogin(req, res));
 
-// Cierra sesión y redirige al login
-router.get('/logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/login');
-    });
-});
+// Rutas para el login y logout
+router.post('/login', (req, res) => authController.login(req, res));
+router.get('/logout', (req, res) => authController.logout(req, res));
+router.get('/login', (req, res) => authController.renderLogin(req, res));
 
-// Renderiza el formulario de login
-router.get('/login', (req, res) => {
-  res.render('login', { error: null });
-});
+// Rutas para el registro de usuarios
+router.get('/register', (req, res) => authController.renderRegister(req, res));
+router.post('/register', (req, res) => authController.register(req, res));
 
-// Renderiza el formulario de registro
-router.get('/register', (req, res) => {
-  res.render('register', { error: null });
-});
-
-// Procesar registro
-router.post('/register', async (req, res) => {
-    const { primerNombre, segundoNombre, primerApellido, segundoApellido, correo, contrasena, confirmarContrasena } = req.body;
-    if (contrasena !== confirmarContrasena) {
-        return res.render('register', { error: 'Las contraseñas no coinciden' });
-    }
-    try {
-        const existe = await User.findOne({ correo });
-        if (existe) {
-            return res.render('register', { error: 'El correo ya está registrado' });
-        }
-        const nuevoUsuario = new User({
-            primerNombre,
-            segundoNombre,
-            primerApellido,
-            segundoApellido,
-            correo,
-            contrasena,
-            rol: 'residente'
-        });
-        await nuevoUsuario.save();
-        res.redirect('/login');
-    } catch (err) {
-        res.render('register', { error: 'Error al registrar usuario' });
-    }
-});
+// Ruta para crear un nuevo usuario
+router.post('/create', (req, res) => authController.createUser(req, res));
 
 module.exports = router;

@@ -1,3 +1,4 @@
+// Función para mostrar/ocultar la contraseña
 function togglePasswordVisibility(input) {
     console.log('Toggling password visibility');
     const passwordInput = input;
@@ -18,3 +19,21 @@ function togglePasswordVisibility(input) {
         `;
     }
 }
+
+// Importa dayjs y el plugin de tiempo relativo 
+dayjs.locale('es');
+dayjs.extend(dayjs_plugin_relativeTime);
+
+// Función para capitalizar la primera letra de un texto
+function capitalizarPrimeraLetra(texto) {
+    return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+// Función para mostrar la fecha en formato "Hace X tiempo"
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.fecha-alerta').forEach(el => {
+        const fecha = el.getAttribute('data-fecha');
+        let texto = dayjs(fecha).fromNow();
+        el.textContent = capitalizarPrimeraLetra(texto);
+    });
+});

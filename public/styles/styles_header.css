@@ -1,0 +1,8 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.nav-link.active {
+    background-color: #800000 !important;
+    border-color: #800000 !important;
+}

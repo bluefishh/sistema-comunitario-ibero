@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidades - Community Alert System</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles_communities.css">
+    <link rel="stylesheet" href="/styles/custom-swal.css">
+</head>
+<body>
+    <header class="shadow-sm">
+        <nav class="navbar navbar-expand-lg bg-white py-3">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="/img/CAS_without_bg_navbar.png" alt="Logo" width="130" class="me-2">
+                </a>
+                <div class="dropdown d-flex align-items-center">
+                    <div class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                        <span class="m-3"><%= usuario.nombre %></span>
+                    </div>
+                    <ul class="dropdown-menu mt-2">
+                        <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                        <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-4 card-shadow">
+                    <h3 class="text-center fw-bold my-3">Seleccionar comunidad</h3>
+                    <p class="text-center mb-4">Para acceder a la información específica de su comunidad</p>
+
+                    <div class="search-container mb-4">
+                        <div class="input-group position-relative">
+                            <input type="text" class="form-control" id="buscarComunidad" name="buscarComunidad" placeholder="Buscar comunidad...">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill position-absolute top-50 end-0 translate-middle-y me-3" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center">
+                        <ul class="nav nav-underline" id="comunidadTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" aria-current="page" href="#" id="mis-comunidades-tab" data-bs-toggle="tab" data-bs-target="#mis-comunidades">Mis comunidades</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" aria-current="page" href="#" id="explorar-tab" data-bs-toggle="tab" data-bs-target="#explorar">Explorar comunidades</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-content" id="comunidadTabsContent">
+                        <div class="tab-pane fade show active m-3" id="mis-comunidades" role="tabpanel">
+                            <% if (misComunidades && misComunidades.length > 0) { %>
+                                <% misComunidades.forEach(function(comunidad) { %>
+                                    <div class="card mb-4">
+                                        <div class="card-body d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="/img/default_image_community.png" alt="imgComunidad" id="community-image">
+                                                <div class="card-content ms-4">
+                                                    <h5 class="card-title"><%= comunidad.nombre %></h5>
+                                                    <p class="card-text text-muted">
+                                                        <%= comunidad.ciudad %>, <%= comunidad.estado %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column align-items-end">
+                                                <form method="GET" action="alerts/" style="display:inline;">
+                                                    <input type="hidden" name="comunidadId" value="<%= comunidad.id %>">
+                                                    <button type="submit" class="btn btn-danger btn-main">Ingresar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <p class="text-muted text-center mt-3">Aún no se ha unido a ninguna comunidad.</p>
+                            <% } %>
+                        </div>
+                        <div class="tab-pane fade m-3" id="explorar" role="tabpanel">
+                            <p class="text-muted text-center">Busque una comunidad para unirse.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/communities.js"></script>
+
+</body>
+</html>
