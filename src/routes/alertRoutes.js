@@ -6,6 +6,15 @@ const router = express.Router();
 const alertController = new AlertController(AlertModel);
 
 // Ruta para obtener alertas por comunidad
+router.post('/', (req, res) => {
+    req.usuarioNombre = req.session.nombre;
+    if (req.body.comunidadId) {
+        req.session.comunidadId = req.body.comunidadId;
+    }
+    req.params.comunidadId = req.session.comunidadId;
+    alertController.getAlertsByCommunity(req, res);
+});
+
 router.get('/', (req, res) => {
     req.usuarioNombre = req.session.nombre;
     req.params.comunidadId = req.session.comunidadId;
@@ -16,6 +25,7 @@ router.get('/', (req, res) => {
 router.post('/create', async (req, res) => {
     req.body.publicador = req.session.userId; 
     req.body.comunidad = req.session.comunidadId;
+    console.log('comunidadId en sesión:', req.session.comunidadId);
     await alertController.createAlert(req, res);
 });
 
