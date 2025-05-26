@@ -3,7 +3,7 @@ const router = express.Router();
 const requireAuth = require('../middleware/auth');
 
 const { CommunityController, joinCommunity } = require('../controllers/communitiesController');
-const CommunityModel = require('../models/communitiesModel'); // <--- Cambiado aquí
+const CommunityModel = require('../models/communitiesModel');
 
 const communitiesController = new CommunityController(CommunityModel);
 
