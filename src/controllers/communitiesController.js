@@ -35,6 +35,7 @@ class CommunityController {
 // Unirse a una comunidad
 async function joinCommunity(req, res) {
     try {
+        console.log('SESSION:', req.session);
         const { apiId, nombre, ciudad, estado, codigoPostal } = req.body;
         const userId = req.session.userId;
         if (!userId) {

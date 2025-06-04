@@ -71,8 +71,10 @@ function guardarComunidad(osm_id, nombre, ciudad = '', estado = '', codigoPostal
     fetch('/communities/join', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(comunidad)
     })
     .then(async res => {
@@ -104,6 +106,11 @@ function guardarComunidad(osm_id, nombre, ciudad = '', estado = '', codigoPostal
     })
     .catch(err => {
         console.log(err.message || 'Error al unirse a la comunidad');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.message || 'No se pudo unir a la comunidad.'
+        });
     });
 }
 

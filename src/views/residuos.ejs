@@ -1,0 +1,274 @@
+<%- include('partials/header') %>
+<link rel="stylesheet" href="/styles/styles_residuos.css">
+
+<div class="container mt-5">
+  <a href="/alerts" class="btn btn-secondary mb-4">← Volver al inicio</a>
+
+  <!-- HORARIOS -->
+  <h2>Horario de recolección</h2>
+  <div class="horarios">
+    <% if (residuos.horarios.length > 0) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Día</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Servicio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% residuos.horarios.forEach(h => { %>
+            <tr>
+              <td><%= h.dia %></td>
+              <td><%= h.horaInicio %></td>
+              <td><%= h.horaFin %></td>
+              <td><%= h.servicio ? 'Sí' : 'No' %></td>
+              <td>
+                <form action="/residuos/horario/eliminar/<%= h._id %>" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar horario?')">
+                  <button class="btn btn-sm btn-danger">Eliminar</button>
+                </form>
+                <button class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#editarHorarioModal-<%= h._id %>">Editar</button>
+              </td>
+            </tr>
+
+            <!-- MODAL EDITAR HORARIO -->
+            <div class="modal fade" id="editarHorarioModal-<%= h._id %>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <form action="/residuos/horario/editar/<%= h._id %>" method="POST" class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Editar horario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <select name="dia" class="form-control mb-2" required>
+                      <option value="Lunes" <%= h.dia === 'Lunes' ? 'selected' : '' %>>Lunes</option>
+                      <option value="Martes" <%= h.dia === 'Martes' ? 'selected' : '' %>>Martes</option>
+                      <option value="Miércoles" <%= h.dia === 'Miércoles' ? 'selected' : '' %>>Miércoles</option>
+                      <option value="Jueves" <%= h.dia === 'Jueves' ? 'selected' : '' %>>Jueves</option>
+                      <option value="Viernes" <%= h.dia === 'Viernes' ? 'selected' : '' %>>Viernes</option>
+                      <option value="Sábado" <%= h.dia === 'Sábado' ? 'selected' : '' %>>Sábado</option>
+                    </select>
+                    <input type="time" name="horaInicio" class="form-control mb-2" value="<%= h.horaInicio %>" required>
+                    <input type="time" name="horaFin" class="form-control mb-2" value="<%= h.horaFin %>" required>
+                    <select name="servicio" class="form-control mb-2" required>
+                      <option value="true" <%= h.servicio ? 'selected' : '' %>>Con servicio</option>
+                      <option value="false" <%= !h.servicio ? 'selected' : '' %>>Sin servicio</option>
+                    </select>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guardar cambios</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p class="text-muted fst-italic">No hay horarios disponibles</p>
+    <% } %>
+  </div>
+
+  <!-- BOTÓN AGREGAR HORARIO -->
+  <button class="btn btn-outline-success mt-3 mb-4" data-bs-toggle="modal" data-bs-target="#crearHorarioModal">+ Agregar horario</button>
+
+  <!-- MODAL AGREGAR HORARIO -->
+  <div class="modal fade" id="crearHorarioModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="/residuos/horario" method="POST" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar horario de recolección</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <select name="dia" class="form-control mb-2" required>
+            <option value="">Seleccionar día</option>
+            <option>Lunes</option>
+            <option>Martes</option>
+            <option>Miércoles</option>
+            <option>Jueves</option>
+            <option>Viernes</option>
+            <option>Sábado</option>
+          </select>
+          <input type="time" name="horaInicio" class="form-control mb-2" required>
+          <input type="time" name="horaFin" class="form-control mb-2" required>
+          <select name="servicio" class="form-control mb-2" required>
+            <option value="true">Con servicio</option>
+            <option value="false">Sin servicio</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="filtroFuturas">
+    <label class="form-check-label" for="filtroFuturas">
+      Mostrar solo campañas futuras
+    </label>
+  </div>
+  
+  <!-- CAMPAÑAS -->
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Campañas de reciclaje</h2>
+    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearCampaniaModal">+ Crear nueva campaña</button>
+  </div>
+
+  <div class="campanias mt-3">
+    <% if (residuos.campanias.length > 0) { %>
+      <% residuos.campanias.forEach(c => { %>
+        <div class="card">
+          <h5><%= c.titulo %></h5>
+          <p><strong>Fecha:</strong> <%= c.fecha %> | <strong>Hora:</strong> <%= c.hora %></p>
+          <p><%= c.descripcion %></p>
+          <p><strong>Lugar:</strong> <%= c.lugar %></p>
+          <form action="/residuos/campania/eliminar/<%= c._id %>" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar esta campaña?')">
+            <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+          </form>
+          <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editarModal-<%= c._id %>">Editar</button>
+        </div>
+
+        <!-- MODAL EDITAR CAMPAÑA -->
+        <div class="modal fade" id="editarModal-<%= c._id %>" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog">
+            <form action="/residuos/campania/editar/<%= c._id %>" method="POST" class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Editar campaña</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <input type="text" name="titulo" class="form-control mb-2" value="<%= c.titulo %>" required>
+                <input type="date" name="fecha" class="form-control mb-2" value="<%= c.fecha %>" required>
+                <input type="time" name="hora" class="form-control mb-2" value="<%= c.hora %>" required>
+                <input type="text" name="lugar" class="form-control mb-2" value="<%= c.lugar %>" required>
+                <textarea name="descripcion" class="form-control" required><%= c.descripcion %></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Guardar cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p class="text-muted fst-italic">No hay campañas registradas</p>
+    <% } %>
+  </div>
+
+<!-- PUNTOS -->
+<h2 class="mt-5">Puntos de reciclaje</h2>
+<div class="d-flex justify-content-between align-items-center">
+  <p class="text-muted mb-0">Ubicaciones disponibles donde se puede dejar reciclaje.</p>
+  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#crearPuntoModal">+ Agregar punto</button>
+</div>
+
+<div class="puntos mt-3">
+  <% if (residuos.puntos.length > 0) { %>
+    <% residuos.puntos.forEach(p => { %>
+      <div class="card">
+        <h5><%= p.nombre %></h5>
+        <p><%= p.descripcion %></p>
+        <form action="/residuos/punto/eliminar/<%= p._id %>" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este punto?')">
+          <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+        </form>
+        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editarPuntoModal-<%= p._id %>">Editar</button>
+      </div>
+
+      <!-- MODAL EDITAR PUNTO -->
+      <div class="modal fade" id="editarPuntoModal-<%= p._id %>" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <form action="/residuos/punto/editar/<%= p._id %>" method="POST" class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar punto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <input type="text" name="nombre" class="form-control mb-2" value="<%= p.nombre %>" required>
+              <textarea name="descripcion" class="form-control" required><%= p.descripcion %></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Guardar cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    <% }); %>
+  <% } else { %>
+    <p class="text-muted fst-italic mt-3">No hay puntos de reciclaje registrados</p>
+  <% } %>
+</div>
+
+<!-- MODAL CREAR PUNTO -->
+<div class="modal fade" id="crearPuntoModal" tabindex="-1" aria-labelledby="crearPuntoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="/residuos/punto" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="crearPuntoLabel">Agregar nuevo punto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre del punto" required>
+        <textarea name="descripcion" class="form-control" placeholder="Descripción" required></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- MODAL CREAR CAMPAÑA -->
+<div class="modal fade" id="crearCampaniaModal" tabindex="-1" aria-labelledby="crearCampaniaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="/residuos/crear-campania" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="crearCampaniaLabel">Nueva campaña de reciclaje</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="titulo" class="form-control mb-2" placeholder="Título" required>
+        <input type="date" name="fecha" class="form-control mb-2" required>
+        <input type="time" name="hora" class="form-control mb-2" required>
+        <input type="text" name="lugar" class="form-control mb-2" placeholder="Lugar" required>
+        <textarea name="descripcion" class="form-control" placeholder="Descripción" required></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Publicar</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkbox = document.getElementById('filtroFuturas');
+    const cards = document.querySelectorAll('.campanias .card');
+
+    checkbox.addEventListener('change', () => {
+      const hoy = new Date();
+
+      cards.forEach(card => {
+        const fechaTexto = card.querySelector('p').textContent; // "Fecha: 2025-06-04 | Hora: 10:00"
+        const fechaMatch = fechaTexto.match(/Fecha:\s*(\d{4}-\d{2}-\d{2})/);
+        
+        if (!fechaMatch) return;
+
+        const fechaCampania = new Date(fechaMatch[1]);
+        
+        if (checkbox.checked && fechaCampania < hoy.setHours(0, 0, 0, 0)) {
+          card.style.display = 'none';
+        } else {
+          card.style.display = '';
+        }
+      });
+    });
+  });
+</script>
+
+<%- include('partials/footer') %>

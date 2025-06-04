@@ -15,11 +15,17 @@ class AuthController {
         if (!user || !(await user.comparePassword(contrasena))) {
             return res.render('login', { error: 'Usuario o contraseña incorrectos' });
         }
+    
+        req.session.user = {
+            _id: user._id,
+            nombre: user.primerNombre + ' ' + user.primerApellido,
+            rol: user.rol
+        };
         req.session.userId = user._id;
-        req.session.nombre = user.primerNombre + ' ' + user.primerApellido;
-        req.session.rol = user.rol;
+        
         res.redirect('/communities');
     }
+    
 
     // Renderizar la página de logout
     logout(req, res) {
