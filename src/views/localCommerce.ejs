@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comercio local - Community Alert System</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles_local_commerce.css">
+    <link rel="stylesheet" href="/styles/custom-swal.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <div class="container mt-5 pt-4">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h1 class="fw-bold">Barrio <%= comunidad %></h1>
+                        <p class="text-muted">Está viendo todas las ofertas en comercios locales de esta comunidad</p>
+                    </div>
+                    <div class="text-end mb-4">
+                        <button class="btn btn-outline-secondary" id="crear-oferta">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                            </svg> Crear nueva oferta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% if (offers && offers.length > 0) { %>
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-9">
+                    <% offers.forEach(function(offer) { %>
+                        <div class="card mb-4">
+                            <div class="card-body d-flex">
+                                <div class="flex-shrink-0 me-4">
+                                    <img src="/img/com-loc.jpg" alt="Water" class="img-fluid h-100" style="width: 200px; object-fit: cover;">
+                                </div>
+                                <div class="d-flex gap-4 align-items-start w-100">
+                                    <div class="d-flex flex-column justify-content-start align-items-start w-100">
+                                        <div class="d-flex justify-content-between align-items-start w-100">
+                                            <h4 class="h4 mb-0"><%= offer.nombre_negocio %></h4>
+                                            <span class="badge badge-descuento"><%= offer.descuento %></span>
+                                        </div>
+                                        <p class="text-muted small">Válido hasta: <%= offer.fecha_vigencia %></p>
+                                        <p class="text-muted"><%= offer.descripcion %></p>
+                                        <p class="text-muted"><%= offer.direccion_negocio %></p>
+                                        <p class="text-muted m-0 small">Publicado por: <%= offer.publicador.primerNombre %> <%= offer.publicador.primerApellido %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } else { %>
+            <p class="text-muted text-center">No hay ofertas en esta comunidad.</p>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/localCommerce.js"></script>
+</body>
+</html>

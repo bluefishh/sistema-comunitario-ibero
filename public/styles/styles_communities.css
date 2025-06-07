@@ -1,0 +1,67 @@
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+}
+
+.card-body {
+    height: 150px;
+}
+
+.card-shadow {
+    border: none;
+    border-radius: 30px !important;
+    box-shadow: 0 4px 20px #d9d9d9;
+}
+
+.nav-link {
+    color: #212529 !important; /* color base del texto (negro Bootstrap) */
+}
+
+/* Elimina el efecto hover azul */
+.nav-tabs .nav-link:hover {
+    color: #000 !important;
+}
+
+/* Tab activo */
+.nav-tabs .nav-link.active {
+    font-weight: bold !important;
+    border-bottom: 2px solid #000 !important;
+}
+
+/* Quita el borde inferior de las inactivas */
+.nav-tabs .nav-link:not(.active) {
+    border: none !important;
+}
+
+.form-control {
+    border-color: #d9d9d9;
+    color: #b3b3b3;
+    padding: 12px 16px;
+}
+
+.form-control:focus {
+    border-color: #d9d9d9;
+    color: #b3b3b3;
+    box-shadow: none;
+}
+
+.community-cards {
+    overflow-y: auto;
+}
+
+.btn-main {
+    background-color: #800000;
+    border-color: #800000;
+}
+
+.btn-danger:hover {
+    background-color: #660000 !important;
+    border-color: #660000 !important;
+}
+
+#community-image {
+    width: 150px;
+}
+
+.bi-geo-alt-fill {
+    color: #d9d9d9;
+}

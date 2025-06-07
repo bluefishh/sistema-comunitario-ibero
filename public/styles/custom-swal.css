@@ -1,0 +1,105 @@
+.swal2-popup.swal-nunito {
+    font-family: 'Nunito', sans-serif !important;
+    max-width: 550px !important;
+    width: 90vw !important;
+    box-sizing: border-box;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+.swal-title-custom {
+    font-size: 1.5rem !important;
+    color: #222 !important;   
+    margin-top: 2rem !important;
+    font-weight: bold !important;
+}
+
+.swal-nunito label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1rem;
+    text-align: left;
+    color: black !important;
+}
+
+.swal-nunito .swal2-input,
+.swal-nunito .swal2-select,
+.swal-nunito .swal2-textarea {
+    width: 98% !important;
+    max-width: 98%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    font-size: 1rem;
+    color: #d9d9d9;
+}
+
+.swal-nunito .swal2-input:focus,
+.swal-nunito .swal2-textarea:focus {
+    width: 98% !important;
+    max-width: 98%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    font-size: 1rem;
+    color: #d9d9d9;
+    box-shadow: none !important;
+    border-color: #d9d9d9 !important;
+}
+
+.swal2-actions {
+    display: flex !important;
+    justify-content: center !important;
+    width: 90% !important;
+    gap: 0.5rem;
+    margin-bottom: 1rem !important;
+}
+
+.swal2-actions .swal2-confirm,
+.swal2-actions .swal2-cancel,
+.swal2-actions .swal2-deny {
+    padding: 0.375rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    min-width: 90px;
+}
+
+.swal2-actions .swal2-confirm {
+    background: #5fe289 !important;
+    color: black !important;
+    border-radius: 8px;
+}
+.swal2-actions .swal2-cancel {
+    background: #f8ac9f !important;
+    color: black !important;
+    border-radius: 8px;
+}
+
+.swal2-actions .swal2-deny {
+    background: #f8ac9f !important;
+    color: black !important;
+    border-radius: 8px;
+}
+
+.swal2-validation-message {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.swal2-close {
+    color: #222 !important;    
+    font-size: 2rem !important;   
+    top: 1.2rem !important;      
+    right: 1.2rem !important;   
+    opacity: 1 !important;      
+    transition: color 0.2s;
+    margin-top: 1rem !important;
+}
+.swal2-close:hover {
+    color: #e11d48 !important;
+    background: transparent !important;
+}
