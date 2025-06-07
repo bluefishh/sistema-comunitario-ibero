@@ -8,7 +8,7 @@ const communitiesRoutes = require('./routes/communitiesRoutes');
 const nominatimProxy = require('./routes/nominatimRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
-const localcommerceRoutes = require('./routes/localcommerceRoutes');
+const localCommerceRoutes = require('./routes/localCommerceRoutes');
 const wasteManagement = require('./routes/wasteManagementRoutes');
 
 const app = express();
@@ -63,7 +63,7 @@ app.use('/communities', communitiesRoutes);
 app.use('/api/nominatim', nominatimProxy);
 app.use('/alerts', alertRoutes);
 app.use('/wastemanagement', wasteManagement);
-app.use('/localcommerce', localcommerceRoutes);
+app.use('/localcommerce', localCommerceRoutes);
 app.use('/administration', adminRoutes);
 app.use('/users', userRoutes);
 
