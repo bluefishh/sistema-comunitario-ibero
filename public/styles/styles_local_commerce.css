@@ -1,0 +1,30 @@
+body {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+.card {
+    border-color: #d9d9d9 !important;
+}
+
+.badge {
+    padding: 8px !important;
+    font-weight: normal !important;
+    font-size: 0.95rem !important;
+}
+
+.badge-descuento {
+    background-color: #fcdb97 !important;
+    color: #333 !important;
+}
+
+.btn-outline-secondary {
+    border-color: #d9d9d9 !important;
+    color: #1e1e1e !important;
+    padding: 8px 16px !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa !important;
+    border-color: #d9d9d9 !important;
+    color: #1e1e1e !important;
+}

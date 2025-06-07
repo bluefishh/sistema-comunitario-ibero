@@ -1,0 +1,17 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn-outline-danger {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    color: black !important;
+}
+
+.btn-outline-danger:hover {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background-color: white !important;
+}

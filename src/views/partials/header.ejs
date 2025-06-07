@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Comunidades</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles_header.css">
+</head>
+<body>
+<header class="shadow-sm">  
+    <nav class="navbar navbar-expand-lg bg-white py-3">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="/img/CAS_without_bg_navbar.png" alt="Logo" width="130" class="me-2">
+            </a>
+            <div class="navbar-nav mx-auto">
+                <a class="nav-link <%= currentPath.startsWith('/alerts') ? 'active bg-danger text-white rounded' : 'text-secondary' %> px-3 mx-1" href="/alerts/">Alertas</a>
+                <a class="nav-link <%= currentPath.startsWith('/waste') ? 'active bg-danger text-white rounded' : 'text-secondary' %> mx-1" href="#">Gestión de Residuos</a>
+                <a class="nav-link <%= currentPath.startsWith('/commerce') ? 'active bg-danger text-white rounded' : 'text-secondary' %> mx-1" href="#">Comercio Local</a>
+                <% if (usuario && usuario.rol === 'admin') { %>
+                    <a class="nav-link <%= currentPath.startsWith('/administration') ? 'active bg-danger text-white rounded' : 'text-secondary' %> mx-1" href="/administration/">Administración</a>
+                <% } %>
+            </div>
+            <div class="dropdown d-flex align-items-center">
+                <div class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                    </svg>
+                    <% if (usuario) { %>
+                        <span class="m-3"><%= usuario.nombre %></span>
+                    <% } else { %>
+                        <span class="m-3">error</span>
+                    <% } %>
+                </div>
+                <ul class="dropdown-menu mt-2">
+                    <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                    <li><a class="dropdown-item" href="/communities">Cambiar comunidad</a></li>
+                    <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
