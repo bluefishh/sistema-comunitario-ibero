@@ -18,7 +18,7 @@ class LocalCommerceController {
                 ? await this.localCommerceModel.obtenerNombreComunidad(comunidadId)
                 : '';
 
-            res.render('localcommerce', {
+            res.render('localCommerce', {
                 offers,
                 comunidad: comunidadNombre,
                 usuario: {
