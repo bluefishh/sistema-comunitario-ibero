@@ -55,6 +55,31 @@ class UserController {
         }
     }
 
+    // Actualizar solo la contraseña del usuario autenticado
+    async updateProfile(req, res) {
+        try {
+            const userId = req.session.userId;
+            const { contrasena } = req.body;
+
+            if (!userId || !contrasena) {
+                return res.json({ success: false, message: 'Datos incompletos' });
+            }
+
+            // Busca el usuario y actualiza la contraseña
+            const user = await this.User.buscarPorId(userId);
+            if (!user) {
+                return res.json({ success: false, message: 'Usuario no encontrado' });
+            }
+
+            user.contrasena = contrasena;
+            await user.save();
+
+            res.json({ success: true });
+        } catch (err) {
+            res.json({ success: false, message: 'Error al actualizar la contraseña' });
+        }
+    }
+
     // Eliminar usuario y su relación con comunidades
     async deleteUser(req, res) {
         try {
@@ -63,6 +88,34 @@ class UserController {
             res.json({ success: true });
         } catch (err) {
             res.json({ success: false, message: 'Error al eliminar usuario' });
+        }
+    }
+
+    // Mostrar perfil del usuario autenticado
+    async getProfile(req, res) {
+        try {
+            const userId = req.session.userId;
+            if (!userId) {
+                return res.redirect('/login');
+            }
+
+            const user = await this.User.buscarPorId(userId);
+
+            if (!user) {
+                return res.status(404).send('Usuario no encontrado');
+            }
+
+            res.render('profile', {
+                user,
+                usuario: {
+                    nombre: req.session.nombre,
+                    rol: req.session.rol
+                },
+                currentPath: req.originalUrl
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al cargar el perfil');
         }
     }
 }

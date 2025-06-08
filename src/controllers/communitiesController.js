@@ -5,7 +5,7 @@ class CommunityController {
     constructor(communityModel) {
         this.communityModel = communityModel;
     }
-
+CommunityController
     // Obtener todas las comunidades
     async getAllCommunities(req, res) {
         try {
@@ -23,7 +23,7 @@ class CommunityController {
 
             res.render('communities', {
                 idUsuario: { id: req.session.userId },
-                usuario: { nombre: req.session.nombre },
+                usuario: { nombre: req.session.nombre, _id: req.session.userId },
                 misComunidades: misComunidades
             });
         } catch (error) {
