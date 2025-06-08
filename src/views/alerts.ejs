@@ -33,131 +33,147 @@
 
                 <div class="tab-content" id="alertas-tabContent">
                     <div class="tab-pane fade show active" id="todas" role="tabpanel" aria-labelledby="todas-tab">
-                        <% alerts.forEach(alert => { %>
-                            <div class="card mb-4">
-                                <div class="card-body d-flex">
-                                    <% if (alert.tipo === 'seguridad') { %>
-                                        <div class="flex-shrink-0 me-4">
-                                            <img src="/img/sec.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
+                        <% if (alerts && alerts.length > 0) { %>
+                            <% alerts.forEach(alert => { %>
+                                <div class="card mb-4">
+                                    <div class="card-body d-flex">
+                                        <% if (alert.tipo === 'seguridad') { %>
+                                            <div class="flex-shrink-0 me-4">
+                                                <img src="/img/sec.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
+                                            </div>
+                                        <% } else if (alert.tipo === 'emergencia') { %>
+                                            <div class="flex-shrink-0 me-4">
+                                                <img src="/img/eme.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
+                                            </div>
+                                        <% } else if (alert.tipo === 'comunidad') { %>
+                                            <div class="flex-shrink-0 me-4">
+                                                <img src="/img/com.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
+                                            </div>
+                                        <% } %>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <% if (alert.tipo === 'seguridad') { %>
+                                                    <span class="badge text-bg-warning"><%= alert.tipo.toUpperCase() %></span>
+                                                <% } else if (alert.tipo === 'emergencia') { %>
+                                                    <span class="badge text-bg-danger"><%= alert.tipo.toUpperCase() %></span>
+                                                <% } else if (alert.tipo === 'comunidad') { %>
+                                                    <span class="badge text-bg-success"><%= alert.tipo.toUpperCase() %></span>
+                                                <% } %>
+                                                <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                                            </div>
+                                            <h3 class="mt-4"><%= alert.titulo %></h3>
+                                            <p class="text-muted"><%= alert.descripcion %></p>
+                                            <small class="text-muted">
+                                                Publicado por: 
+                                                <% if (alert.publicador) { %>
+                                                    <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
+                                                <% } else { %>
+                                                    Usuario desconocido o eliminado
+                                                <% } %>
+                                            </small>
                                         </div>
-                                    <% } else if (alert.tipo === 'emergencia') { %>
-                                        <div class="flex-shrink-0 me-4">
-                                            <img src="/img/eme.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
-                                        </div>
-                                    <% } else if (alert.tipo === 'comunidad') { %>
-                                        <div class="flex-shrink-0 me-4">
-                                            <img src="/img/com.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
-                                        </div>
-                                    <% } %>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <% if (alert.tipo === 'seguridad') { %>
-                                                <span class="badge text-bg-warning"><%= alert.tipo.toUpperCase() %></span>
-                                            <% } else if (alert.tipo === 'emergencia') { %>
-                                                <span class="badge text-bg-danger"><%= alert.tipo.toUpperCase() %></span>
-                                            <% } else if (alert.tipo === 'comunidad') { %>
-                                                <span class="badge text-bg-success"><%= alert.tipo.toUpperCase() %></span>
-                                            <% } %>
-                                            <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
-                                        </div>
-                                        <h3 class="mt-4"><%= alert.titulo %></h3>
-                                        <p class="text-muted"><%= alert.descripcion %></p>
-                                        <small class="text-muted">
-                                            Publicado por: 
-                                            <% if (alert.publicador) { %>
-                                                <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
-                                            <% } else { %>
-                                                Usuario desconocido o eliminado
-                                            <% } %>
-                                        </small>
                                     </div>
                                 </div>
-                            </div>
-                        <% }) %>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-muted text-center">No hay alertas en esta comunidad.</p>
+                        <% } %>
                     </div>
 
                     <div class="tab-pane fade" id="alertas-seguridad" role="tabpanel" aria-labelledby="seguridad-tab">
-                        <% alerts.filter(alert => alert.tipo === 'seguridad').forEach(alert => { %>
-                            <div class="card mb-4">
-                                <div class="card-body d-flex">
-                                    <div class="flex-shrink-0 me-4">
-                                        <img src="/img/sec.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <span class="badge text-bg-warning"><%= alert.tipo.toUpperCase() %></span>
-                                            <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                        <% if (alerts && alerts.length > 0) { %>
+                            <% alerts.filter(alert => alert.tipo === 'seguridad').forEach(alert => { %>
+                                <div class="card mb-4">
+                                    <div class="card-body d-flex">
+                                        <div class="flex-shrink-0 me-4">
+                                            <img src="/img/sec.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
                                         </div>
-                                        <h3 class="mt-4"><%= alert.titulo %></h3>
-                                        <p class="text-muted"><%= alert.descripcion %></p>
-                                        <small class="text-muted">
-                                            Publicado por: 
-                                            <% if (alert.publicador) { %>
-                                                <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
-                                            <% } else { %>
-                                                Usuario desconocido o eliminado
-                                            <% } %>
-                                        </small>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <span class="badge text-bg-warning"><%= alert.tipo.toUpperCase() %></span>
+                                                <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                                            </div>
+                                            <h3 class="mt-4"><%= alert.titulo %></h3>
+                                            <p class="text-muted"><%= alert.descripcion %></p>
+                                            <small class="text-muted">
+                                                Publicado por: 
+                                                <% if (alert.publicador) { %>
+                                                    <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
+                                                <% } else { %>
+                                                    Usuario desconocido o eliminado
+                                                <% } %>
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <% }) %>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-muted text-center">No hay alertas de seguridad en esta comunidad.</p>
+                        <% } %>
                     </div>
 
                     <div class="tab-pane fade" id="alertas-emergencias" role="tabpanel" aria-labelledby="emergencias-tab">
-                        <% alerts.filter(alert => alert.tipo === 'emergencia').forEach(alert => { %>
-                            <div class="card mb-4">
-                                <div class="card-body d-flex">
-                                    <div class="flex-shrink-0 me-4">
-                                        <img src="/img/eme.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <span class="badge text-bg-danger"><%= alert.tipo.toUpperCase() %></span>
-                                            <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                        <% if (alerts && alerts.length > 0) { %>
+                            <% alerts.filter(alert => alert.tipo === 'emergencia').forEach(alert => { %>
+                                <div class="card mb-4">
+                                    <div class="card-body d-flex">
+                                        <div class="flex-shrink-0 me-4">
+                                            <img src="/img/eme.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
                                         </div>
-                                        <h3 class="mt-4"><%= alert.titulo %></h3>
-                                        <p class="text-muted"><%= alert.descripcion %></p>
-                                        <small class="text-muted">
-                                            Publicado por: 
-                                            <% if (alert.publicador) { %>
-                                                <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
-                                            <% } else { %>
-                                                Usuario desconocido o eliminado
-                                            <% } %>
-                                        </small>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <span class="badge text-bg-danger"><%= alert.tipo.toUpperCase() %></span>
+                                                <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                                            </div>
+                                            <h3 class="mt-4"><%= alert.titulo %></h3>
+                                            <p class="text-muted"><%= alert.descripcion %></p>
+                                            <small class="text-muted">
+                                                Publicado por: 
+                                                <% if (alert.publicador) { %>
+                                                    <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
+                                                <% } else { %>
+                                                    Usuario desconocido o eliminado
+                                                <% } %>
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <% }) %>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-muted text-center">No hay alertas de emergencia en esta comunidad.</p>
+                        <% } %>
                     </div>
 
                     <div class="tab-pane fade" id="alertas-comunidad" role="tabpanel" aria-labelledby="comunidad-tab">
-                        <% alerts.filter(alert => alert.tipo === 'comunidad').forEach(alert => { %>
-                            <div class="card mb-4">
-                                <div class="card-body d-flex">
-                                    <div class="flex-shrink-0 me-4">
-                                        <img src="/img/com.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <span class="badge text-bg-success"><%= alert.tipo.toUpperCase() %></span>
-                                            <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                        <% if (alerts && alerts.length > 0) { %>
+                            <% alerts.filter(alert => alert.tipo === 'comunidad').forEach(alert => { %>
+                                <div class="card mb-4">
+                                    <div class="card-body d-flex">
+                                        <div class="flex-shrink-0 me-4">
+                                            <img src="/img/com.jpg" alt="Water" class="img-fluid" style="width: 180px; height: 100%; object-fit: cover;">
                                         </div>
-                                        <h3 class="mt-4"><%= alert.titulo %></h3>
-                                        <p class="text-muted"><%= alert.descripcion %></p>
-                                        <small class="text-muted">
-                                            Publicado por: 
-                                            <% if (alert.publicador) { %>
-                                                <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
-                                            <% } else { %>
-                                                Usuario desconocido o eliminado
-                                            <% } %>
-                                        </small>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <span class="badge text-bg-success"><%= alert.tipo.toUpperCase() %></span>
+                                                <small class="text-muted fecha-alerta" data-fecha="<%= alert.fecha %>"></small>
+                                            </div>
+                                            <h3 class="mt-4"><%= alert.titulo %></h3>
+                                            <p class="text-muted"><%= alert.descripcion %></p>
+                                            <small class="text-muted">
+                                                Publicado por: 
+                                                <% if (alert.publicador) { %>
+                                                    <%= alert.publicador.primerNombre %> <%= alert.publicador.primerApellido %>
+                                                <% } else { %>
+                                                    Usuario desconocido o eliminado
+                                                <% } %>
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <% }) %>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-muted text-center">No hay alertas comunitarias en esta comunidad.</p>
+                        <% } %>
                     </div>
                 </div>
             </div>
